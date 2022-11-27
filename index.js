@@ -17,6 +17,7 @@ async function run(){
         const database=client.db('FlowByte')
         const categories=database.collection('categories');
         const userCollection=database.collection('userCollection');
+        const bookingOrderd=database.collection('bookingOrderd')
         app.get('/category/:id',async(req,res)=>{
             const id=parseInt( req.params.id);
             console.log(id)
@@ -34,6 +35,12 @@ async function run(){
             res.send(result)
 
         })
+        app.post('/booking',async(req,res)=>{
+            const booked=req.body;
+            const result=await bookingOrderd.insertOne(booked);
+            res.send(result)
+        })
+        app
 
     }
     catch{
