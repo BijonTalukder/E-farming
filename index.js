@@ -40,7 +40,21 @@ async function run(){
             const result=await bookingOrderd.insertOne(booked);
             res.send(result)
         })
-        app
+        app.get('/booking',async(req,res)=>{
+            const email=req.query.email;
+           const query={email:email}
+           const cursor=bookingOrderd.find(query);
+           const result=await cursor.toArray()
+           res.send(result)
+        })
+
+        app.get('/users/role/:email',async(req,res)=>{
+            const email=req.params.email;
+            const query={email}
+            const user=await userCollection.findOne(query)
+            res.send(user)
+            // res.send({isAdmin:user?.role==='admin'})
+        })
 
     }
     catch{
