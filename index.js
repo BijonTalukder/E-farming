@@ -29,6 +29,11 @@ async function run(){
             console.log(result)
 
         })
+        app.post('/category',async(req,res)=>{
+            const category=req.body;
+            const result = await categories.insertOne(category)
+            res.send(result)
+        })
         app.post('/users',async(req,res)=>{
             const user=req.body;
             const result=await userCollection.insertOne(user)
