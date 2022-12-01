@@ -34,11 +34,26 @@ async function run(){
             const result = await categories.insertOne(category)
             res.send(result)
         })
+
+        app.get('/category',async(req,res)=>{
+            const email=req.query.email;
+           const query={email:email}
+           const cursor=categories.find(query);
+           const result=await cursor.toArray()
+           res.send(result)
+        })
         app.post('/users',async(req,res)=>{
             const user=req.body;
             const result=await userCollection.insertOne(user)
             res.send(result)
 
+        })
+
+        app.get('/alluser', async(req,res)=>{
+            const query={}
+            const cursor = userCollection.find(query)
+            const result = await cursor.toArray();
+            res.send(result)
         })
         app.post('/booking',async(req,res)=>{
             const booked=req.body;
@@ -52,6 +67,16 @@ async function run(){
            const result=await cursor.toArray()
            res.send(result)
         })
+        app.get('/booking/:id',async(req,res)=>{
+            const id=req.params.id;
+            console.log(id)
+            const query={_id:ObjectId(id)}
+            const booking =  bookingOrderd.find(query)
+            const result=await booking.toArray()
+            // console.log(result)
+            res.send(result)
+        })
+      
 
         app.get('/users/role/:email',async(req,res)=>{
             const email=req.params.email;
